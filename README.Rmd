@@ -47,7 +47,7 @@ devtools::install_github("pridiltal/oddwater")
 ## Example
 
 ### Data Preprocessing. These outliers were confirmed by DES
-```{r preprocess}
+```{r preprocess, warning=FALSE, message=FALSE}
 library(oddwater)
 library(tidyverse)
 #Label data

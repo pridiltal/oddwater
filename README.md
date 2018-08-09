@@ -43,14 +43,6 @@ devtools::install_github("pridiltal/oddwater")
 ``` r
 library(oddwater)
 library(tidyverse)
-#> -- Attaching packages ---------------------------------------------------------------- tidyverse 1.2.1 --
-#> v ggplot2 3.0.0     v purrr   0.2.5
-#> v tibble  1.4.2     v dplyr   0.7.6
-#> v tidyr   0.8.1     v stringr 1.3.1
-#> v readr   1.1.1     v forcats 0.3.0
-#> -- Conflicts ------------------------------------------------------------------- tidyverse_conflicts() --
-#> x dplyr::filter() masks stats::filter()
-#> x dplyr::lag()    masks stats::lag()
 #Label data
 # Outliers confirmed by DES
 outliers <- c("22-03-17 10:00", "05-04-17 7:20", "13-06-17 4:50", "03-11-17 7:50", "26-07-17 16:00")
