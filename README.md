@@ -23,3 +23,87 @@ Status](https://travis-ci.org/pridiltal/oddwater.svg?branch=master)](https://tra
 # oddwater
 
 We propose a framework to detect anomalies in water quality sensor data.
+
+This package is still under development and this repository contains a
+development version of the R package *oddwater*.
+
+## Installation
+
+You can install oddstream from github with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("pridiltal/oddwater")
+```
+
+## Example
+
+### Data Preprocessing. These outliers were confirmed by DES
+
+``` r
+library(oddwater)
+library(tidyverse)
+#> -- Attaching packages ---------------------------------------------------------------- tidyverse 1.2.1 --
+#> v ggplot2 3.0.0     v purrr   0.2.5
+#> v tibble  1.4.2     v dplyr   0.7.6
+#> v tidyr   0.8.1     v stringr 1.3.1
+#> v readr   1.1.1     v forcats 0.3.0
+#> -- Conflicts ------------------------------------------------------------------- tidyverse_conflicts() --
+#> x dplyr::filter() masks stats::filter()
+#> x dplyr::lag()    masks stats::lag()
+#Label data
+# Outliers confirmed by DES
+outliers <- c("22-03-17 10:00", "05-04-17 7:20", "13-06-17 4:50", "03-11-17 7:50", "26-07-17 16:00")
+# Neighbours of those outliers
+neighbours <- c("22-03-17 11:10", "05-04-17 8:50", "13-06-17 6:20", "26-07-17 15:00", "03-11-17 9:20")
+# label points as outliers or typical
+sandy_creek$type <- ifelse( (sandy_creek$Timestamp  %in% outliers ), "outlier", "typical")
+neighbour <- which(sandy_creek$Timestamp  %in% neighbours )
+sandy_creek$type[neighbour] <- "neighbour"
+
+
+# Change time format
+sandy_creek$Timestamp <- lubridate::dmy_hm(sandy_creek$Timestamp)
+```
+
+### Transform data
+
+``` r
+data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",      
+                       "Lsonde_Level_m","type")] %>% drop_na()
+trans_data <- oddwater::transform_data(data)
+#> Warning in log(data_var): NaNs produced
+```
+
+### Visualize original data
+
+``` r
+plot_var <- trans_data[, c("Timestamp", "type", "Lsonde_Cond_uscm",   
+                           "Lsonde_Turb_NTU", "Lsonde_Level_m" )] %>% drop_na()
+oddwater::plot_series(plot_var, title = "original series") 
+```
+
+![](README-vis_orig%20-1.png)<!-- -->
+
+``` r
+oddwater::plot_pairs(plot_var)
+```
+
+![](README-vis_orig%20-2.png)<!-- -->
+
+### Visualize transformed data
+
+``` r
+plot_var <- trans_data[, c("Timestamp", "type", "neg_der_log_bounded_turb",
+                           "pos_der_log_bounded_cond", "neg_der_log_bounded_level")]            %>% drop_na()
+colnames(plot_var) <- abbreviate(colnames(plot_var), minlength=20)
+oddwater::plot_series(plot_var, title = "Non linear transformation- exponential of one side log derivatives (bounded")
+```
+
+![](README-vis_trans%20-1.png)<!-- -->
+
+``` r
+oddwater::plot_pairs(plot_var)
+```
+
+![](README-vis_trans%20-2.png)<!-- -->
