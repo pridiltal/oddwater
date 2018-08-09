@@ -87,7 +87,7 @@ oddwater::plot_pairs(plot_var)
 
 ``` r
 plot_var <- trans_data[, c("Timestamp", "type", "neg_der_log_bounded_turb",
-                           "pos_der_log_bounded_cond", "neg_der_log_bounded_level")]            %>% drop_na()
+                           "pos_der_log_bounded_cond", "neg_der_log_bounded_level")] %>% drop_na()
 colnames(plot_var) <- abbreviate(colnames(plot_var), minlength=20)
 oddwater::plot_series(plot_var, title = "Non linear transformation- exponential of one side log derivatives (bounded")
 ```
