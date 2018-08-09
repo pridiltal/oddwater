@@ -37,7 +37,7 @@ development version of the R package *oddwater*.
 
 ## Installation
 
-You can install oddstream from github with:
+You can install oddwater from github with:
 
 ``` r
 # install.packages("devtools")
@@ -88,6 +88,6 @@ oddwater::plot_pairs(plot_var)
 plot_var <- trans_data[, c("Timestamp", "type", "neg_der_log_bounded_turb",
                            "pos_der_log_bounded_cond", "neg_der_log_bounded_level")] %>% drop_na()
 colnames(plot_var) <- abbreviate(colnames(plot_var), minlength=20)
-oddwater::plot_series(plot_var, title = "Non linear transformation- exponential of one side log derivatives (bounded")
+oddwater::plot_series(plot_var, title = "Non linear transformation - one side log derivatives (bounded")
 oddwater::plot_pairs(plot_var)
 ``` 
