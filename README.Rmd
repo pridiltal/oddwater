@@ -118,3 +118,9 @@ Compute Means square Error
 clac_MSE(true_y, pred_y)
 ```
 
+
+## Further Details
+
+```{r eval = FALSE}
+?oddwater
+```
