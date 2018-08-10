@@ -65,6 +65,16 @@ sandy_creek$type[neighbour] <- "neighbour"
 sandy_creek$Timestamp <- lubridate::dmy_hm(sandy_creek$Timestamp)
 ```
 
+### Visualize time gap
+
+`sandy_creek` data is an irregular time series
+
+```{r time_gap, dependson = 'preprocess'}
+data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",      
+                       "Lsonde_Level_m","type")] %>% drop_na()
+plot_time_gap(data)
+```
+
 ### Transform data
 ```{r trans , dependson='preprocess'}
 data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",      

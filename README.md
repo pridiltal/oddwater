@@ -13,7 +13,7 @@ version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-
 
 -----
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2018--08--09-yellowgreen.svg)](/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2018--08--10-yellowgreen.svg)](/commits/master)
 
 [![Build
 Status](https://travis-ci.org/pridiltal/oddwater.svg?branch=master)](https://travis-ci.org/pridiltal/oddwater)
@@ -57,6 +57,20 @@ sandy_creek$type[neighbour] <- "neighbour"
 # Change time format
 sandy_creek$Timestamp <- lubridate::dmy_hm(sandy_creek$Timestamp)
 ```
+
+### Visualize time gap
+
+`sandy_creek` data is an irregular time
+series
+
+``` r
+data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",      
+                       "Lsonde_Level_m","type")] %>% drop_na()
+plot_time_gap(data)
+#> Warning: Removed 1 rows containing missing values (geom_path).
+```
+
+![](README-time_gap-1.png)<!-- -->
 
 ### Transform data
 

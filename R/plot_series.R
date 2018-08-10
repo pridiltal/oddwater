@@ -73,10 +73,10 @@ plot_time_gap<- function(data)
 {
   n <- nrow(data)
   time <- c(NA, as.numeric(lubridate::ymd_hms(data$Timestamp[2:n]) - lubridate::ymd_hms(data$Timestamp[1:(n-1)])))
-    time_gap_data <- cbind(data$Timestamp , time)
-    p <- ggplot(time_gap_data, aes(x= Timestamp, y= time))+
+  time_gap_data <- data.frame(Timestamp = data$Timestamp , time)
+  p <- ggplot(time_gap_data, aes(x= Timestamp, y= time))+
       geom_line()+
       ylab("time (minutes)")
-    print(p)
+  print(p)
 }
 
