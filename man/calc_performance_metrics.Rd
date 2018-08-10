@@ -8,7 +8,7 @@ calc_performance_metrics(y_truth, y_output, pos_label, neg_label,
   print_out = TRUE)
 }
 \arguments{
-\item{y_truth}{A character vector contain gthe gorund truth}
+\item{y_truth}{A character vector containing the gorund truth}
 
 \item{y_output}{a character vector containing the predicted labels from the algorithm}
 

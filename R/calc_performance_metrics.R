@@ -1,7 +1,7 @@
 #' Compute performance metrics
 #'
 #' @description Computes various measure to evaluate the performance of an algorithm
-#' @param y_truth A character vector contain gthe gorund truth
+#' @param y_truth A character vector containing the gorund truth
 #' @param y_output a character vector containing the predicted labels from the algorithm
 #' @param pos_label A character string. Label used to indicate the outliers in the original dataframe.
 #' @param neg_label A character string. Label used to indicate the typical values in the original dataframe.
@@ -50,3 +50,18 @@ calc_performance_metrics <- function(y_truth, y_output,  pos_label, neg_label, p
   return(pm)
 
 }
+
+#' Compute mean squared error
+#'
+#' @description Compute mean squared error
+#' @param y_truth A numeric vector containing the gorund truth
+#' @param y_pred A numeric vector containing the estimated values
+#' @export
+#' @author Priyanga Dilini Talagala
+#'
+clac_MSE <- function(y_truth, y_pred )
+{
+  MSE <- mean((y_truth - y_pred)^2)
+  return(MSE)
+}
+

@@ -105,14 +105,16 @@ oddwater::plot_pairs(plot_var)
 
 ### Compute performance metrics
 
-This is a toy example to demonstate this function
-
 ```{r pm}
-
 # Generate a toy dataset
 true_labels <- c("out", "out", "normal", "out", "normal", "normal", "normal", "normal", "normal", "normal")
 output <-  c("out", "normal", "normal", "normal", "out", "out", "normal", "normal", "normal", "normal")
 # Compute performance metrics 
 out<- calc_performance_metrics(y_truth = true_labels, y_output = output, pos_label = "out", neg_label = "normal")
+```
+
+Compute Means square Error
+```{r eval = FALSE}
+clac_MSE(true_y, pred_y)
 ```
 
