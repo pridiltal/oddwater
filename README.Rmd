@@ -101,3 +101,18 @@ colnames(plot_var) <- abbreviate(colnames(plot_var), minlength=20)
 oddwater::plot_series(plot_var, title = "Non linear transformation - one side log derivatives (bounded")
 oddwater::plot_pairs(plot_var)
 ``` 
+
+
+### Compute performance metrics
+
+This is a toy example to demonstate this function
+
+```{r pm}
+
+# Generate a toy dataset
+true_labels <- c("out", "out", "normal", "out", "normal", "normal", "normal", "normal", "normal", "normal")
+output <-  c("out", "normal", "normal", "normal", "out", "out", "normal", "normal", "normal", "normal")
+# Compute performance metrics 
+out<- calc_performance_metrics(y_truth = true_labels, y_output = output, pos_label = "out", neg_label = "normal")
+```
+

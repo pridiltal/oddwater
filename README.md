@@ -113,3 +113,29 @@ oddwater::plot_pairs(plot_var)
 ```
 
 ![](README-vis_trans%20-2.png)<!-- -->
+
+### Compute performance metrics
+
+This is a toy example to demonstate this function
+
+``` r
+
+# Generate a toy dataset
+true_labels <- c("out", "out", "normal", "out", "normal", "normal", "normal", "normal", "normal", "normal")
+output <-  c("out", "normal", "normal", "normal", "out", "out", "normal", "normal", "normal", "normal")
+# Compute performance metrics 
+out<- calc_performance_metrics(y_truth = true_labels, y_output = output, positive = "out", negative = "normal")
+#>                      Value
+#> TN                  5.0000
+#> FN                  2.0000
+#> FP                  2.0000
+#> TP                  1.0000
+#> Accuracy            0.6000
+#> Error_Rate          0.4000
+#> Sensitivity         0.3333
+#> Specificity         0.7143
+#> Precision           0.3333
+#> Recall              0.1667
+#> F_Measure           0.2222
+#> Optimised_Precision 0.2364
+```
