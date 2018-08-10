@@ -6,6 +6,19 @@
 #' @param pos_label A character string. Label used to indicate the outliers in the original dataframe.
 #' @param neg_label A character string. Label used to indicate the typical values in the original dataframe.
 #' @param print_out If TRUE, output will be printed to console.
+#' @return  A list with the following elements:
+#' \item{TN}{True negatives}
+#' \item{FN}{False negatives}
+#' \item{FP}{False positives}
+#' \item{TP}{True positives}
+#' \item{Accuracy}{Accuracy}
+#' \item{Error_Rate}{Error Rate}
+#' \item{Sensitivity}{Sensitivity}
+#' \item{Specificity}{Specificity}
+#' \item{Precision}{Precision}
+#' \item{Recall}{Recall}
+#' \item{F_Measure}{F Measure}
+#' \item{Optimised_Precision}{Optimised Precision}
 #' @export
 #' @author Priyanga Dilini Talagala
 #' @examples

@@ -18,6 +18,21 @@ calc_performance_metrics(y_truth, y_output, pos_label, neg_label,
 
 \item{print_out}{If TRUE, output will be printed to console.}
 }
+\value{
+A list with the following elements:
+\item{TN}{True negatives}
+\item{FN}{False negatives}
+\item{FP}{False positives}
+\item{TP}{True positives}
+\item{Accuracy}{Accuracy}
+\item{Error_Rate}{Error Rate}
+\item{Sensitivity}{Sensitivity}
+\item{Specificity}{Specificity}
+\item{Precision}{Precision}
+\item{Recall}{Recall}
+\item{F_Measure}{F Measure}
+\item{Optimised_Precision}{Optimised Precision}
+}
 \description{
 Computes various measure to evaluate the performance of an algorithm
 }
