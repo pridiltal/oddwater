@@ -57,26 +57,3 @@ plot_pairs<- function(data)
   print(p2)
 }
 
-
-#' Plot the time gap
-#'
-#' @description Provide graphical representation of time gap. Useful when dealing
-#' with irregular time series
-#' @param data A dataframe of one or more than two colums."Timestamp" column give the timestamps.
-#' @return A graphical representation of the time gaps
-#' @export
-#' @import ggplot2
-#' @importFrom lubridate ymd_hms
-#' @author Priyanga Dilini Talagala
-#'
-plot_time_gap<- function(data)
-{
-  n <- nrow(data)
-  time <- c(NA, as.numeric(lubridate::ymd_hms(data$Timestamp[2:n]) - lubridate::ymd_hms(data$Timestamp[1:(n-1)])))
-  time_gap_data <- data.frame(Timestamp = data$Timestamp , time)
-  p <- ggplot(time_gap_data, aes(x= Timestamp, y= time))+
-      geom_line()+
-      ylab("time (minutes)")
-  print(p)
-}
-

@@ -6,6 +6,7 @@
 #' impossible values (negative values) and out of range values etc
 #' @param data A dataframe. This dataframe contains a seperate column for Timestamp, in addition
 #' to the variables that need to be transformed
+#' @param time_col A quoted string to specify the column name of the timestamp
 #' @param time_bound A positive constant. This is to reduce the effect coming from too
 #' small time gaps when calculating derivatives.
 #' @param regular Regular time interval (TRUE) or irregular (FALSE)
@@ -19,13 +20,13 @@
 #' "Lsonde_Level_m")]
 #' data <- tidyr::drop_na(data)
 #' trans_data <- oddwater::transform_data(data)
-transform_data <- function(data,  time_bound = 90, regular = FALSE)
+transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "Timestamp")
 {
-  if(!(lubridate::is.Date(data$Timestamp) | lubridate::is.POSIXct(data$Timestamp) ))
-  { data$Timestamp <- lubridate::dmy_hm(as.Date(data$Timestamp)) }
+  if(!(lubridate::is.Date(data[time_col]) | lubridate::is.POSIXct(data[time_col]) ))
+  { data[time_col] <- lubridate::dmy_hm((data[[time_col]]) )}
 
   n <- nrow(data)
-  data_var <- as.matrix(data[ , !(names(data) %in% "Timestamp")])
+  data_var <- as.matrix(data[ , !(names(data) %in% time_col)])
 
   # apply log transformation
   log_series <- log(data_var)
@@ -55,7 +56,7 @@ transform_data <- function(data,  time_bound = 90, regular = FALSE)
   data <- cbind(data, neg_der_log_bounded_turb, pos_der_log_bounded_cond,
                 neg_der_log_bounded_level, time)
 
-  data <- tsibble::as_tibble(data, index = Timestamp , regular = regular)
+  data <- tsibble::as_tsibble(data, index = Timestamp , regular = regular)
 
   return(data)
 }

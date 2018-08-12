@@ -4,7 +4,8 @@
 \alias{transform_data}
 \title{Apply different transformations to the original series}
 \usage{
-transform_data(data, time_bound = 90, regular = FALSE)
+transform_data(data, time_bound = 90, regular = FALSE,
+  time_col = "Timestamp")
 }
 \arguments{
 \item{data}{A dataframe. This dataframe contains a seperate column for Timestamp, in addition
@@ -14,6 +15,8 @@ to the variables that need to be transformed}
 small time gaps when calculating derivatives.}
 
 \item{regular}{Regular time interval (TRUE) or irregular (FALSE)}
+
+\item{time_col}{A quoted string to specify the column name of the timestamp}
 }
 \value{
 A tsibble object with the original and the transformed series

@@ -47,35 +47,34 @@ sandy_creek$type <- ifelse( (sandy_creek$Timestamp  %in% outliers ), "outlier", 
 neighbour <- which(sandy_creek$Timestamp  %in% neighbours )
 sandy_creek$type[neighbour] <- "neighbour"
 
+```
 
-# Change time format
-sandy_creek$Timestamp <- lubridate::dmy_hm(sandy_creek$Timestamp)
+
+### Transform data
+```{r trans , dependson='preprocess'}
+data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",      
+                       "Lsonde_Level_m")] %>% drop_na()
+trans_data <-oddwater::transform_data(data)
+head(trans_data)
 ```
 
 ### Visualize time gap
 
 `sandy_creek` data is an irregular time series
 
-```{r time_gap, dependson = 'preprocess', eval = FALSE}
-data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",      
-                       "Lsonde_Level_m","type")] %>% drop_na()
-plot_time_gap(data)
+```{r time_gap, dependson = 'trans'}
+trans_data <- trans_data %>% drop_na()
+p <- ggplot(trans_data, aes(x= Timestamp, y= time))+
+      geom_line()+
+      ylab("time (minutes)")
+print(p)
 ```
-
-### Transform data
-```{r trans , dependson='preprocess'}
-data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",      
-                       "Lsonde_Level_m")] %>% drop_na()
-trans_data <-transform_data(data)
-head(trans_data)
-```
-
 
 ### Visualize original data
 ```{r vis_orig , dependson='trans', eval= FALSE }
 plot_var <- dplyr::left_join(trans_data, sandy_creek, by = "Timestamp")
 
-plot_var <- trans_data[, c("Timestamp", "type", "Lsonde_Cond_uscm",   
+plot_var <- trans_data[, c("Timestamp", "Lsonde_Cond_uscm",   
                            "Lsonde_Turb_NTU", "Lsonde_Level_m" )] %>% drop_na()
 oddwater::plot_series(plot_var, title = "original series") 
 oddwater::plot_pairs(plot_var)

@@ -34,20 +34,6 @@ neighbours <- c("22-03-17 11:10", "05-04-17 8:50", "13-06-17 6:20", "26-07-17 15
 sandy_creek$type <- ifelse( (sandy_creek$Timestamp  %in% outliers ), "outlier", "typical")
 neighbour <- which(sandy_creek$Timestamp  %in% neighbours )
 sandy_creek$type[neighbour] <- "neighbour"
-
-
-# Change time format
-sandy_creek$Timestamp <- lubridate::dmy_hm(sandy_creek$Timestamp)
-```
-
-### Visualize time gap
-
-`sandy_creek` data is an irregular time series
-
-``` r
-data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",      
-                       "Lsonde_Level_m","type")] %>% drop_na()
-plot_time_gap(data)
 ```
 
 ### Transform data
@@ -55,12 +41,12 @@ plot_time_gap(data)
 ``` r
 data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",      
                        "Lsonde_Level_m")] %>% drop_na()
-trans_data <-transform_data(data)
+trans_data <-oddwater::transform_data(data)
 #> Warning in log(data_var): NaNs produced
 head(trans_data)
-#> # A tibble: 6 x 17
+#> # A tsibble: 6 x 17 [!]
 #>   Timestamp           Lsonde_Cond_uscm Lsonde_Turb_NTU Lsonde_Level_m
-#>   <dttm>                         <dbl>           <dbl>          <dbl>
+#> * <dttm>                         <dbl>           <dbl>          <dbl>
 #> 1 2017-03-12 01:00:00             326.            34.5          0.636
 #> 2 2017-03-12 02:30:00             327.            34.1          0.636
 #> 3 2017-03-12 04:00:00             327             33.4          0.635
@@ -77,12 +63,26 @@ head(trans_data)
 #> #   time <dbl>
 ```
 
+### Visualize time gap
+
+`sandy_creek` data is an irregular time series
+
+``` r
+trans_data <- trans_data %>% drop_na()
+p <- ggplot(trans_data, aes(x= Timestamp, y= time))+
+      geom_line()+
+      ylab("time (minutes)")
+print(p)
+```
+
+![](README-time_gap-1.png)
+
 ### Visualize original data
 
 ``` r
 plot_var <- dplyr::left_join(trans_data, sandy_creek, by = "Timestamp")
 
-plot_var <- trans_data[, c("Timestamp", "type", "Lsonde_Cond_uscm",   
+plot_var <- trans_data[, c("Timestamp", "Lsonde_Cond_uscm",   
                            "Lsonde_Turb_NTU", "Lsonde_Level_m" )] %>% drop_na()
 oddwater::plot_series(plot_var, title = "original series") 
 oddwater::plot_pairs(plot_var)
