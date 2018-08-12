@@ -11,7 +11,7 @@ oddwater: A package for Outlier Detection in water quality sensor data
 \seealso{
 The core functions in this package: \code{\link{transform_data}},
 \code{\link{plot_series}}, \code{\link{plot_pairs}},
-\code{\link{calc_performance_metrics}}, \code{\link{clac_MSE}}
+\code{\link{calc_performance_metrics}}, \code{\link{calc_MSE}}
 }
 \author{
 Priyanga Dilini Talagala, Rob J. Hyndman

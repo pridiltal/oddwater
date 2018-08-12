@@ -72,7 +72,7 @@ calc_performance_metrics <- function(y_truth, y_output,  pos_label, neg_label, p
 #' @export
 #' @author Priyanga Dilini Talagala
 #'
-clac_MSE <- function(y_truth, y_pred )
+calc_MSE <- function(y_truth, y_pred )
 {
   MSE <- mean((y_truth - y_pred)^2)
   return(MSE)
