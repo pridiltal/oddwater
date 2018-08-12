@@ -15,6 +15,7 @@ Imports:
   ggplot2,
   tidyr,
   scales,
-  GGally
+  GGally,
+  tsibble
 Suggests: 
   magrittr

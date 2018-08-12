@@ -4,23 +4,31 @@
 \alias{transform_data}
 \title{Apply different transformations to the original series}
 \usage{
-transform_data(data, time_bound = 90)
+transform_data(data, time_bound = 90, regular = FALSE)
 }
 \arguments{
-\item{data}{A dataframe. This dataframe contains two columns: Timestamp, type in addition
+\item{data}{A dataframe. This dataframe contains a seperate column for Timestamp, in addition
 to the variables that need to be transformed}
 
 \item{time_bound}{A positive constant. This is to reduce the effect coming from too
 small time gaps when calculating derivatives.}
+
+\item{regular}{Regular time interval (TRUE) or irregular (FALSE)}
 }
 \value{
-a dataframe with the original and transformed series
+A tsibble object with the original and the transformed series
 }
 \description{
 This function apply different transformations to the original variables.
 This data preprocessing step was incorporated with the aim of highlighting  different
 types of anomalies such as sudden isolated spikes, sudden isolated drops, sudden shifts,
 impossible values (negative values) and out of range values etc
+}
+\examples{
+data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",
+"Lsonde_Level_m")]
+data <- tidyr::drop_na(data)
+trans_data <- oddwater::transform_data(data)
 }
 \author{
 Priyanga Dilini Talagala

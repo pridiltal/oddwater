@@ -2,20 +2,6 @@
 output: github_document
 ---
 
-[![Project Status: WIP ? Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
-[![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
- 
----
- 
-[![minimal R version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-project.org/)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/oddwater)](https://cran.r-project.org/package=oddwater)
-[![packageversion](https://img.shields.io/badge/Package%20version-0.1.0-orange.svg?style=flat-square)](commits/master)
- 
----
- 
-[![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-yellowgreen.svg)](/commits/master)
-
-[![Build Status](https://travis-ci.org/pridiltal/oddwater.svg?branch=master)](https://travis-ci.org/pridiltal/oddwater)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -25,6 +11,7 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "README-"
 )
+
 ```
 
 # oddwater
@@ -48,8 +35,8 @@ devtools::install_github("pridiltal/oddwater")
 
 ### Data Preprocessing. These outliers were confirmed by DES
 ```{r preprocess, warning=FALSE, message=FALSE}
-library(oddwater)
 library(tidyverse)
+library(oddwater)
 #Label data
 # Outliers confirmed by DES
 outliers <- c("22-03-17 10:00", "05-04-17 7:20", "13-06-17 4:50", "03-11-17 7:50", "26-07-17 16:00")
@@ -69,7 +56,7 @@ sandy_creek$Timestamp <- lubridate::dmy_hm(sandy_creek$Timestamp)
 
 `sandy_creek` data is an irregular time series
 
-```{r time_gap, dependson = 'preprocess'}
+```{r time_gap, dependson = 'preprocess', eval = FALSE}
 data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",      
                        "Lsonde_Level_m","type")] %>% drop_na()
 plot_time_gap(data)
@@ -78,13 +65,16 @@ plot_time_gap(data)
 ### Transform data
 ```{r trans , dependson='preprocess'}
 data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",      
-                       "Lsonde_Level_m","type")] %>% drop_na()
-trans_data <- oddwater::transform_data(data)
+                       "Lsonde_Level_m")] %>% drop_na()
+trans_data <-transform_data(data)
+head(trans_data)
 ```
 
 
 ### Visualize original data
-```{r vis_orig , dependson='trans' }
+```{r vis_orig , dependson='trans', eval= FALSE }
+plot_var <- dplyr::left_join(trans_data, sandy_creek, by = "Timestamp")
+
 plot_var <- trans_data[, c("Timestamp", "type", "Lsonde_Cond_uscm",   
                            "Lsonde_Turb_NTU", "Lsonde_Level_m" )] %>% drop_na()
 oddwater::plot_series(plot_var, title = "original series") 
@@ -94,7 +84,7 @@ oddwater::plot_pairs(plot_var)
 
 
 ### Visualize transformed data
-```{r vis_trans , dependson='trans'}
+```{r vis_trans , dependson='trans', eval= FALSE}
 plot_var <- trans_data[, c("Timestamp", "type", "neg_der_log_bounded_turb",
                            "pos_der_log_bounded_cond", "neg_der_log_bounded_level")] %>% drop_na()
 colnames(plot_var) <- abbreviate(colnames(plot_var), minlength=20)

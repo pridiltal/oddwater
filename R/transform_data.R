@@ -4,20 +4,28 @@
 #' This data preprocessing step was incorporated with the aim of highlighting  different
 #' types of anomalies such as sudden isolated spikes, sudden isolated drops, sudden shifts,
 #' impossible values (negative values) and out of range values etc
-#' @param data A dataframe. This dataframe contains two columns: Timestamp, type in addition
+#' @param data A dataframe. This dataframe contains a seperate column for Timestamp, in addition
 #' to the variables that need to be transformed
 #' @param time_bound A positive constant. This is to reduce the effect coming from too
 #' small time gaps when calculating derivatives.
-#' @return a dataframe with the original and transformed series
+#' @param regular Regular time interval (TRUE) or irregular (FALSE)
+#' @return A tsibble object with the original and the transformed series
 #' @author Priyanga Dilini Talagala
 #' @export
-#' @importFrom lubridate ymd_hms
-transform_data <- function(data,  time_bound = 90)
+#' @importFrom lubridate dmy_hm is.Date
+#' @importFrom tsibble as_tsibble
+#' @examples
+#' data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",
+#' "Lsonde_Level_m")]
+#' data <- tidyr::drop_na(data)
+#' trans_data <- oddwater::transform_data(data)
+transform_data <- function(data,  time_bound = 90, regular = FALSE)
 {
+  if(!(lubridate::is.Date(data$Timestamp) | lubridate::is.POSIXct(data$Timestamp) ))
+  { data$Timestamp <- lubridate::dmy_hm(as.Date(data$Timestamp)) }
+
   n <- nrow(data)
-  remove <- c("Timestamp", "type")
-  var <- colnames(data)
-  data_var <- as.matrix(data[ , var[!var %in% remove]])
+  data_var <- as.matrix(data[ , !(names(data) %in% "Timestamp")])
 
   # apply log transformation
   log_series <- log(data_var)
@@ -30,7 +38,7 @@ transform_data <- function(data,  time_bound = 90)
   data <- cbind(data, diff_log_series)
 
   # take the derivative of the log series (time bounded)
-  time <- as.numeric(lubridate::ymd_hms(data$Timestamp[2:n]) - lubridate::ymd_hms(data$Timestamp[1:(n-1)]))
+  time <- as.numeric(data$Timestamp[2:n] - data$Timestamp[1:(n-1)])
   time_bound <- ifelse( time >= time_bound, time, time_bound) # to reduce the effect coming from the too small time gaps
   der_log_bounded <- rbind( rep(NA, 3), diff_log_series[2:n, ] / as.numeric(time_bound))
   colnames(der_log_bounded) <- paste("der_log_bound_", colnames(data_var), sep = "")
@@ -46,6 +54,8 @@ transform_data <- function(data,  time_bound = 90)
                                       der_log_bounded[, "der_log_bound_Lsonde_Level_m"  ], 0)
   data <- cbind(data, neg_der_log_bounded_turb, pos_der_log_bounded_cond,
                 neg_der_log_bounded_level, time)
+
+  data <- tsibble::as_tibble(data, index = Timestamp , regular = regular)
 
   return(data)
 }
