@@ -61,59 +61,24 @@ data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",
                        "Lsonde_Level_m")] %>% drop_na()
 trans_data <-oddwater::transform_data(data)
 #> Warning in log(data_var): NaNs produced
-#> Warning: All formats failed to parse. No formats found.
-
-#> Warning: All formats failed to parse. No formats found.
 head(trans_data)
-#>        Timestamp Lsonde_Cond_uscm Lsonde_Turb_NTU Lsonde_Level_m
-#> 2  12-03-17 1:00           326.34           34.47          0.636
-#> 4  12-03-17 2:30           326.63           34.06          0.636
-#> 6  12-03-17 4:00           327.00           33.39          0.635
-#> 8  12-03-17 5:30           327.31           32.61          0.633
-#> 10 12-03-17 7:00           327.81           33.34          0.634
-#> 12 12-03-17 8:30           328.70           32.22          0.631
-#>    log_Lsonde_Cond_uscm log_Lsonde_Turb_NTU log_Lsonde_Level_m
-#> 2              5.787940            3.540089         -0.4525567
-#> 4              5.788828            3.528124         -0.4525567
-#> 6              5.789960            3.508256         -0.4541303
-#> 8              5.790908            3.484619         -0.4572849
-#> 10             5.792434            3.506758         -0.4557063
-#> 12             5.795145            3.472587         -0.4604494
-#>    diff_log_Lsonde_Cond_uscm diff_log_Lsonde_Turb_NTU
-#> 2                         NA                       NA
-#> 4               0.0008882491              -0.01196571
-#> 6               0.0011321391              -0.01986722
-#> 8               0.0009475632              -0.02363746
-#> 10              0.0015264382               0.02213889
-#> 12              0.0027113084              -0.03417050
-#>    diff_log_Lsonde_Level_m der_log_bound_Lsonde_Cond_uscm
-#> 2                       NA                             NA
-#> 4              0.000000000                             NA
-#> 6             -0.001573564                             NA
-#> 8             -0.003154577                             NA
-#> 10             0.001578532                             NA
-#> 12            -0.004743092                             NA
-#>    der_log_bound_Lsonde_Turb_NTU der_log_bound_Lsonde_Level_m
-#> 2                             NA                           NA
-#> 4                             NA                           NA
-#> 6                             NA                           NA
-#> 8                             NA                           NA
-#> 10                            NA                           NA
-#> 12                            NA                           NA
-#>    neg_der_log_bounded_turb pos_der_log_bounded_cond
-#> 2                        NA                       NA
-#> 4                        NA                       NA
-#> 6                        NA                       NA
-#> 8                        NA                       NA
-#> 10                       NA                       NA
-#> 12                       NA                       NA
-#>    neg_der_log_bounded_level time
-#> 2                         NA   NA
-#> 4                         NA   NA
-#> 6                         NA   NA
-#> 8                         NA   NA
-#> 10                        NA   NA
-#> 12                        NA   NA
+#> # A tsibble: 6 x 17 [!]
+#>   Timestamp           Lsonde_Cond_uscm Lsonde_Turb_NTU Lsonde_Level_m
+#> * <dttm>                         <dbl>           <dbl>          <dbl>
+#> 1 2017-03-12 01:00:00             326.            34.5          0.636
+#> 2 2017-03-12 02:30:00             327.            34.1          0.636
+#> 3 2017-03-12 04:00:00             327             33.4          0.635
+#> 4 2017-03-12 05:30:00             327.            32.6          0.633
+#> 5 2017-03-12 07:00:00             328.            33.3          0.634
+#> 6 2017-03-12 08:30:00             329.            32.2          0.631
+#> # ... with 13 more variables: log_Lsonde_Cond_uscm <dbl>,
+#> #   log_Lsonde_Turb_NTU <dbl>, log_Lsonde_Level_m <dbl>,
+#> #   diff_log_Lsonde_Cond_uscm <dbl>, diff_log_Lsonde_Turb_NTU <dbl>,
+#> #   diff_log_Lsonde_Level_m <dbl>, der_log_bound_Lsonde_Cond_uscm <dbl>,
+#> #   der_log_bound_Lsonde_Turb_NTU <dbl>,
+#> #   der_log_bound_Lsonde_Level_m <dbl>, neg_der_log_bounded_turb <dbl>,
+#> #   pos_der_log_bounded_cond <dbl>, neg_der_log_bounded_level <dbl>,
+#> #   time <dbl>
 ```
 
 ### Visualize time gap
