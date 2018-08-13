@@ -22,7 +22,7 @@
 #' trans_data <- oddwater::transform_data(data)
 transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "Timestamp")
 {
-  if(!(lubridate::is.Date(data[time_col]) | lubridate::is.POSIXct(data[time_col]) ))
+  if(!(lubridate::is.Date(data[[time_col]]) | lubridate::is.POSIXct(data[[time_col]]) ))
   { data[time_col] <- lubridate::dmy_hm((data[[time_col]]) )}
 
   n <- nrow(data)
@@ -56,7 +56,7 @@ transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "
   data <- cbind(data, neg_der_log_bounded_turb, pos_der_log_bounded_cond,
                 neg_der_log_bounded_level, time)
 
-  data <- tsibble::as_tsibble(data, index = Timestamp , regular = regular)
+  data <- tsibble::as_tsibble(data, index = time_col , regular = regular)
 
   return(data)
 }
