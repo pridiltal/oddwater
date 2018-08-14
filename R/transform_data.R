@@ -57,8 +57,8 @@ transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "
                 neg_der_log_bounded_level, time)
 
   # rate of change
-  rc_series <- rbind( rep(NA, 3), data_var[2:n,] / data_var[1:(n-1),])
-  colnames(rc_series) <- paste("rc", colnames(diff_log_series), sep = "")
+  rc_series <- rbind( rep(NA, 3), (data_var[2:n,] - data_var[1:(n-1),]) / data_var[1:(n-1),])
+  colnames(rc_series) <- paste("rc_", colnames(diff_log_series), sep = "")
   data <- cbind(data, rc_series)
 
   data <- tsibble::as_tsibble(data, index = time_col , regular = regular)
