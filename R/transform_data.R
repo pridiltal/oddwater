@@ -56,6 +56,11 @@ transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "
   data <- cbind(data, neg_der_log_bounded_turb, pos_der_log_bounded_cond,
                 neg_der_log_bounded_level, time)
 
+  # rate of change
+  rc_series <- rbind( rep(NA, 3), data_var[2:n,] / data_var[1:(n-1),])
+  colnames(rc_series) <- paste("rc", colnames(diff_log_series), sep = "")
+  data <- cbind(data, rc_series)
+
   data <- tsibble::as_tsibble(data, index = time_col , regular = regular)
 
   return(data)
