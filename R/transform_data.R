@@ -34,14 +34,14 @@ transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "
   data <- cbind(data, log_series)
 
   # take the first difference of the log series
-  diff_log_series <- rbind( diff(log_series),  rep(NA, 3))
+  diff_log_series <- rbind( rep(NA, 3), diff(log_series))
   colnames(diff_log_series) <- paste("diff_", colnames(diff_log_series), sep = "")
   data <- cbind(data, diff_log_series)
 
   # take the derivative of the log series (time bounded)
   time <- as.numeric(data$Timestamp[2:n] - data$Timestamp[1:(n-1)])
   time_bound <- ifelse( time >= time_bound, time, time_bound) # to reduce the effect coming from the too small time gaps
-  der_log_bounded <- rbind(  diff_log_series[2:n, ] / as.numeric(time_bound), rep(NA, 3))
+  der_log_bounded <- rbind( rep(NA, 3), diff_log_series[2:n, ] / as.numeric(time_bound))
   colnames(der_log_bounded) <- paste("der_log_bound_", colnames(data_var), sep = "")
   data <- cbind(data, der_log_bounded)
   time <- c(NA, time)
