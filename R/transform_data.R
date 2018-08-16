@@ -53,8 +53,10 @@ transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "
                                      der_log_bounded[, "der_log_bound_Lsonde_Cond_uscm"], 0)
   neg_der_log_bounded_level <- ifelse(der_log_bounded[, "der_log_bound_Lsonde_Level_m"  ] <= 0,
                                       der_log_bounded[, "der_log_bound_Lsonde_Level_m"  ], 0)
-  data <- cbind(data, neg_der_log_bounded_turb, pos_der_log_bounded_cond,
-                neg_der_log_bounded_level, time)
+  one_sided <- cbind( neg_der_log_bounded_turb, pos_der_log_bounded_cond,
+                      neg_der_log_bounded_level)
+  one_sided <- rbind(one_sided[-1,], rep(NA, 3))
+  data <- cbind(data,one_sided, time)
 
   # rate of change
   rc_series <- rbind( rep(NA, 3), (data_var[2:n,] - data_var[1:(n-1),]) / data_var[1:(n-1),])
