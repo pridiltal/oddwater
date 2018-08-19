@@ -34,37 +34,37 @@ transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "
   data <- cbind(data, log_series)
 
   # take the first difference of the log series
-  diff_log_series <- rbind( rep(NA, 3), diff(log_series))
+  diff_log_series <- rbind( rep(NA, ncol(data_var)), diff(log_series))
   colnames(diff_log_series) <- paste("diff_", colnames(diff_log_series), sep = "")
   data <- cbind(data, diff_log_series)
 
   # take the derivative of the log series (time bounded)
   time <- as.numeric(data$Timestamp[2:n] - data$Timestamp[1:(n-1)])
   time_bound <- ifelse( time >= time_bound, time, time_bound) # to reduce the effect coming from the too small time gaps
-  der_log_bounded <- rbind( rep(NA, 3), diff_log_series[2:n, ] / as.numeric(time_bound))
+  der_log_bounded <- rbind( rep(NA, ncol(data_var)), diff_log_series[2:n, ] / as.numeric(time_bound))
   colnames(der_log_bounded) <- paste("der_log_bound_", colnames(data_var), sep = "")
   data <- cbind(data, der_log_bounded)
   time <- c(NA, time)
 
-  # take non linear transformation - one sided log derivatives (time bounded)
-  neg_der_log_bounded_turb <- ifelse(der_log_bounded[, "der_log_bound_Lsonde_Turb_NTU" ] <= 0,
-                                     der_log_bounded[, "der_log_bound_Lsonde_Turb_NTU" ], 0)
-  pos_der_log_bounded_cond <- ifelse(der_log_bounded[, "der_log_bound_Lsonde_Cond_uscm"] >= 0,
-                                     der_log_bounded[, "der_log_bound_Lsonde_Cond_uscm"], 0)
-  neg_der_log_bounded_level <- ifelse(der_log_bounded[, "der_log_bound_Lsonde_Level_m"  ] <= 0,
-                                      der_log_bounded[, "der_log_bound_Lsonde_Level_m"  ], 0)
-  one_sided <- cbind( neg_der_log_bounded_turb, pos_der_log_bounded_cond,
-                      neg_der_log_bounded_level)
-  one_sided <- rbind(one_sided[-1,], rep(NA, 3))
-  data <- cbind(data,one_sided, time)
+  # take non linear transformation - one sided (negative) log derivatives (time bounded)
+  neg_der_log_bounded <- ifelse(der_log_bounded <= 0, der_log_bounded, 0)
+  colnames(neg_der_log_bounded) <- paste("neg_der_log_bound_", colnames(data_var), sep = "")
+  neg_der_log_bounded <- rbind(neg_der_log_bounded[-1,], rep(NA, ncol(data_var)))
+  data <- cbind(data, neg_der_log_bounded, time)
+
+  # take non linear transformation - one sided (positive) log derivatives (time bounded)
+  pos_der_log_bounded <- ifelse(der_log_bounded >= 0, der_log_bounded, 0)
+  colnames(pos_der_log_bounded) <- paste("pos_der_log_bound_", colnames(data_var), sep = "")
+  pos_der_log_bounded <- rbind(pos_der_log_bounded[-1,], rep(NA, ncol(data_var)))
+  data <- cbind(data, pos_der_log_bounded)
 
   # rate of change
-  rc_series <- rbind( rep(NA, 3), (data_var[2:n,] - data_var[1:(n-1),]) / data_var[1:(n-1),])
+  rc_series <- rbind( rep(NA, ncol(data_var)), (data_var[2:n,] - data_var[1:(n-1),]) / data_var[1:(n-1),])
   colnames(rc_series) <- paste("rc_", colnames(data_var), sep = "")
   data <- cbind(data, rc_series)
 
   # Ratio
-  ratio_series <- rbind( rep(NA, 3), data_var[2:n,] / data_var[1:(n-1),])
+  ratio_series <- rbind( rep(NA, ncol(data_var)), data_var[2:n,] / data_var[1:(n-1),])
   colnames(ratio_series) <- paste("ratio_", colnames(data_var), sep = "")
   data <- cbind(data, ratio_series)
 
