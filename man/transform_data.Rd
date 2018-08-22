@@ -28,8 +28,7 @@ types of anomalies such as sudden isolated spikes, sudden isolated drops, sudden
 impossible values (negative values) and out of range values etc
 }
 \examples{
-data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",
-"Lsonde_Level_m")]
+data <- data_sandy[,c("Timestamp", "Cond", "Tur", "Level")]
 data <- tidyr::drop_na(data)
 trans_data <- oddwater::transform_data(data)
 }

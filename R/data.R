@@ -3,22 +3,43 @@
 #' A multivariate dataset containing the variables obtained using water quality
 #' sensors from Sandy Creek .
 #'
-#' @format A data frame with 15231 rows and 15 variables:
+#' @format A data frame with 5402 rows and 10 variables:
 #' \describe{
 #' \item{Timestamp }{Time Stamps}
-#' \item{Lmain_Level_m }{Lmain_Level_m }
-#' \item{Lmain_BattVMin}{Lmain_BattVMin}
-#' \item{Lmain_Temp_C}{Lmain_Temp_C}
-#' \item{Lmain_PestFrVMin}{Lmain_PestFrVMin}
-#' \item{Lmain_PumpBattVMin}{Lmain_PumpBattVMin}
-#' \item{Lsonde_Cond_uscm}{Lsonde_Cond_uscm}\
-#' \item{Lsonde_DO_mgL}{Lsonde_DO_mgL}
-#' \item{Lsonde_DO_pSat}{Lsonde_DO_pSat}
-#' \item{Lsonde_fDOM_QSU}{Lsonde_fDOM_QSU}
-#' \item{Lsonde_fDOM_Raw}{Lsonde_fDOM_Raw}
-#' \item{Lsonde_fDOM_RFU}{Lsonde_fDOM_RFU}
-#' \item{Lsonde_Level_m}{Lsonde_Level_m}
-#' \item{Lsonde_Temp_C}{Lsonde_Temp_C}
-#' \item{Lsonde_Turb_NTU}{Lsonde_Turb_NTU}
+#' \item{Level }{Level}
+#' \item{Cond}{Conductivity}
+#' \item{Tur}{Turbidity}
+#' \item{label_Level}{Whether individual data points are anomalous or not in the level series. 1 - outlier, 0 - typical}
+#' \item{label_Cond}{Whether individual data points are anomalous or not in the conductivity series. 1 - outlier, 0 - typical}
+#' \item{label_Tur}{Whether individual data points are anomalous or not in the tubidity series. 1 - outlier, 0 - typical}
+#' \item{type_Level}{Type of the anomaly in the level series}
+#' \item{type_Cond}{Type of the anomaly in the conductivity series}
+#' \item{type_Tur}{Type of the anomaly in the Turbidity series}
 #' }
-"sandy_creek"
+"data_sandy"
+
+
+#' Water Quality Sensor data - Pioneer
+#'
+#' A multivariate dataset containing the variables obtained using water quality
+#' sensors from Pioneer.
+#'
+#' @format A data frame with 11532 rows and 14 variables:
+#' \describe{
+#' \item{Timestamp }{Time Stamps}
+#' \item{RowID}{Row Index}
+#' \item{Nitrate_mgl}{Nitrate}
+#' \item{Level }{Level}
+#' \item{Cond}{Conductivity}
+#' \item{Tur}{Turbidity}
+#' \item{label_Nitrate}{Whether individual data points are anomalous or not in the Nitrate series. 1 - outlier, 0 - typical}
+#' \item{label_Level}{Whether individual data points are anomalous or not in the level series. 1 - outlier, 0 - typical}
+#' \item{label_Cond}{Whether individual data points are anomalous or not in the conductivity series. 1 - outlier, 0 - typical}
+#' \item{label_Tur}{Whether individual data points are anomalous or not in the tubidity series. 1 - outlier, 0 - typical}
+#' \item{type_Nitrate}{Type of the anomaly in the Nitrate series}
+#' \item{type_Level}{Type of the anomaly in the level series}
+#' \item{type_Cond}{Type of the anomaly in the conductivity series}
+#' \item{type_Tur}{Type of the anomaly in the Turbidity series}
+#' }
+"data_pioneer"
+

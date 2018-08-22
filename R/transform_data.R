@@ -16,8 +16,7 @@
 #' @importFrom lubridate dmy_hm is.Date
 #' @importFrom tsibble as_tsibble
 #' @examples
-#' data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",
-#' "Lsonde_Level_m")]
+#' data <- data_sandy[,c("Timestamp", "Cond", "Tur", "Level")]
 #' data <- tidyr::drop_na(data)
 #' trans_data <- oddwater::transform_data(data)
 transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "Timestamp")
