@@ -53,9 +53,9 @@ calc_performance_metrics <- function(y_truth, y_output,  pos_label, neg_label, p
   GM   <- sqrt(TP*TN)
   OP   <- acc - (abs(sp - sn)/(sp+sn))
 
-  pm <- list(TN, FN, FP, TP, acc, err, sn, sp, p, r, FM, OP)
+  pm <- list(TN, FN, FP, TP, acc, err, sn, sp, p, r, FM, GM, OP)
   names(pm) <-c("TN", "FN", "FP", "TP", "Accuracy", "Error_Rate", "Sensitivity",
-                "Specificity", "Precision", "Recall", "F_Measure", "Optimised_Precision")
+                "Specificity", "Precision", "Recall", "F_Measure","Geometric_mean", "Optimised_Precision")
 
   if(print_out)
   {print(data.frame(Value = round(unlist(pm),4)))}
