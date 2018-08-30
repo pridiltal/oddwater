@@ -51,8 +51,12 @@ calc_performance_metrics <- function(y_truth, y_output,  pos_label, neg_label, p
   r    <- TP / (TP + TN)
   FM   <- (2*p*r) / (p + r)
   GM   <- sqrt(TP*TN)
-  OP   <- acc - (abs(sp - sn)/(sp+sn))
 
+  Nn   <- (FP + TN) / (TP + FP + TN + FN)
+  Np   <- (TP + FN) / (TP + FP + TN + FN)
+  P    <- (sp*Nn + sn*Np)
+  RI   <- (abs(sp - sn)/(sp+sn))
+  OP   <- P - RI
   pm <- list(TN, FN, FP, TP, acc, err, sn, sp, p, r, FM, GM, OP)
   names(pm) <-c("TN", "FN", "FP", "TP", "Accuracy", "Error_Rate", "Sensitivity",
                 "Specificity", "Precision", "Recall", "F_Measure","Geometric_mean", "Optimised_Precision")
