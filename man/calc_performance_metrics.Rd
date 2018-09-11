@@ -32,6 +32,8 @@ A list with the following elements:
 \item{Recall}{Recall}
 \item{F_Measure}{F Measure}
 \item{Optimised_Precision}{Optimised Precision}
+\item{PPV}{Positive Predictive Value}
+\item{NPV}{Negative Predictive Value}
 }
 \description{
 Computes various measure to evaluate the performance of an algorithm
