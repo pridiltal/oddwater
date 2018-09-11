@@ -66,8 +66,7 @@ calc_performance_metrics <- function(y_truth, y_output, pos_label, neg_label, pr
   names(pm) <- c(
     "TN", "FN", "FP", "TP", "Accuracy", "Error_Rate", "Sensitivity",
     "Specificity", "Precision", "Recall", "F_Measure", "Geometric_mean",
-    "Optimised_Precision", "Positive_Predictive_Value",
-    "Negative_Predictive_Value"
+    "Optimised_Precision", "PPV", "NPV"
   )
 
   if (print_out) {
