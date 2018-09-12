@@ -3,7 +3,8 @@ Type: Package
 Title: Anomaly Detection in Water quality Sensors
 Version: 0.1.0
 Depends: R (>= 3.4.0)
-Author: Priyanga Dilini Talagala
+Author: Priyanga Dilini Talagala [aut, cre]
+        Rob J. Hyndman [aut, ths]
 Maintainer: Priyanga Dilini Talagala <dilini.talagala@monash.edu>
 Description: We propose a framework to detect anomalies in water quality sensor data.
 License: GPL-3
