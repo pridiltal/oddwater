@@ -67,16 +67,6 @@ transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "
   colnames(ratio_series) <- paste("ratio_", colnames(data_var), sep = "")
   data <- cbind(data, ratio_series)
 
-  # logit
-  logit_series <- log(data_var/(1-data_var))
-  colnames(logit_series) <- paste("logit_", colnames(data_var), sep = "")
-  data <- cbind(data, logit_series)
-
-  # sigmoid
-  sigmoid_series <-  1/(1+exp(-data_var))
-  colnames(sigmoid_series) <- paste("sigmoid_", colnames(data_var), sep = "")
-  data <- cbind(data, sigmoid_series)
-
   data <- tsibble::as_tsibble(data, index = time_col , regular = regular)
 
   return(data)
