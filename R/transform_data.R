@@ -68,12 +68,12 @@ transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "
   data <- cbind(data, ratio_series)
 
   # logit
-  logit_series <- (log(data_var/(1-data_var))+10)/20
+  logit_series <- log(data_var/(1-data_var))
   colnames(logit_series) <- paste("logit_", colnames(data_var), sep = "")
   data <- cbind(data, logit_series)
 
   # sigmoid
-  sigmoid_series <-  1/(1+exp(-20*data_var+10))
+  sigmoid_series <-  1/(1+exp(-data_var))
   colnames(sigmoid_series) <- paste("sigmoid_", colnames(data_var), sep = "")
   data <- cbind(data, sigmoid_series)
 
