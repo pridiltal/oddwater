@@ -17,6 +17,7 @@ Imports:
   tidyr,
   scales,
   GGally,
-  tsibble
+  tsibble,
+  shiny
 Suggests: 
   magrittr
