@@ -117,11 +117,15 @@ output <-  c("out", "normal", "normal", "normal", "out", "out", "normal", "norma
 out<- calc_performance_metrics(y_truth = true_labels, y_output = output, pos_label = "out", neg_label = "normal")
 ```
 
-Compute Means square Error
+## Compute Means square Error
 ```{r eval = FALSE}
 clac_MSE(true_y, pred_y)
 ```
 
+## Launch Shiny application
+```{r eval = FALSE}
+oddwater::explore_data()
+```
 
 ## Further Details
 
