@@ -68,7 +68,7 @@ transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "
   data <- cbind(data, ratio_series)
 
   # Relative difference
-  relative_series <- rbind( rep(NA, ncol(data_var)), (log_series[2:(n-1),] - (1/2)*(log_series[1:(n-2),] +log_series[3:n,]  )),
+  relative_series <- rbind( rep(NA, ncol(data_var)), (data_var[2:(n-1),] - (1/2)*(data_var[1:(n-2),] +data_var[3:n,]  )),
                             rep(NA, ncol(data_var)))
   colnames(relative_series) <- paste("rdifflog_", colnames(data_var), sep = "")
   data <- cbind(data, relative_series)
