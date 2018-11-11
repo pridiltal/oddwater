@@ -48,13 +48,13 @@ transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "
   # take non linear transformation - one sided (negative) log derivatives (time bounded)
   neg_der_log_bounded <- ifelse(der_log_bounded <= 0, der_log_bounded, 0)
   colnames(neg_der_log_bounded) <- paste("neg_der_log_bound_", colnames(data_var), sep = "")
-  neg_der_log_bounded <- rbind(neg_der_log_bounded[-1,], rep(NA, ncol(data_var)))
+  neg_der_log_bounded <- rbind( rep(NA, ncol(data_var)), neg_der_log_bounded[-1,])
   data <- cbind(data, neg_der_log_bounded, time)
 
   # take non linear transformation - one sided (positive) log derivatives (time bounded)
   pos_der_log_bounded <- ifelse(der_log_bounded >= 0, der_log_bounded, 0)
   colnames(pos_der_log_bounded) <- paste("pos_der_log_bound_", colnames(data_var), sep = "")
-  pos_der_log_bounded <- rbind(pos_der_log_bounded[-1,], rep(NA, ncol(data_var)))
+  pos_der_log_bounded <- rbind(rep(NA, ncol(data_var)), pos_der_log_bounded[-1,])
   data <- cbind(data, pos_der_log_bounded)
 
   # rate of change
