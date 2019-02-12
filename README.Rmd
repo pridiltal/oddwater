@@ -24,18 +24,20 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "man/figures/README-"
 )
 
 ```
 
 # oddwater
 
-We propose a framework to detect anomalies in water quality sensor data.
+Outliers due to technical errors in water-quality data from in situ sensors can reduce data quality and have a direct impact on inference drawn from subsequent data analysis. Here, we proposed an automated framework that provides early detection of outliers in water-quality data from in situ sensors **caused by technical issues**. The framework was used first to identify the data features that differentiate outlying instances from typical behaviours. Then statistical transformations were applied to make the outlying instances stand out in transformed data space. Unsupervised outlier scoring techniques were then applied to the transformed data space and an approach based on extreme value theory was used to calculate a threshold for each potential outlier.
+
+[In this work](https://www.monash.edu/__data/assets/pdf_file/0007/1645027/wp01-2019.pdf) we showed that our proposed framework, with carefully selected data transformation methods derived from data features, can greatly assist in increasing the
+performance of a range of existing outlier detection algorithms.
 
 
-This package is still under development and this repository contains a
-development version of the R package *oddwater*.
+This package is still under development and this repository contains a development version of the R package *oddwater*.
 
 ## Installation
 
@@ -44,91 +46,4 @@ You can install oddwater from github with:
 ``` r
 # install.packages("devtools")
 devtools::install_github("pridiltal/oddwater")
-```
-
-## Example
-
-### Data Preprocessing. These outliers were confirmed by DES
-```{r preprocess, warning=FALSE, message=FALSE}
-library(tidyverse)
-library(oddwater)
-#Label data
-# Outliers confirmed by DES
-outliers <- c("22-03-17 10:00", "05-04-17 7:20", "13-06-17 4:50", "03-11-17 7:50", "26-07-17 16:00")
-# Neighbours of those outliers
-neighbours <- c("22-03-17 11:10", "05-04-17 8:50", "13-06-17 6:20", "26-07-17 15:00", "03-11-17 9:20")
-# label points as outliers or typical
-sandy_creek$type <- ifelse( (sandy_creek$Timestamp  %in% outliers ), "outlier", "typical")
-neighbour <- which(sandy_creek$Timestamp  %in% neighbours )
-sandy_creek$type[neighbour] <- "neighbour"
-
-```
-
-
-### Transform data
-```{r trans , dependson='preprocess'}
-data <- sandy_creek[,c("Timestamp", "Lsonde_Cond_uscm", "Lsonde_Turb_NTU",      
-                       "Lsonde_Level_m")] %>% drop_na()
-trans_data <-oddwater::transform_data(data)
-head(trans_data)
-```
-
-### Visualize time gap
-
-`sandy_creek` data is an irregular time series
-
-```{r time_gap, dependson = 'trans'}
-trans_data <- trans_data %>% drop_na()
-p <- ggplot(trans_data, aes(x= Timestamp, y= time))+
-      geom_line()+
-      ylab("time (minutes)")
-print(p)
-```
-
-### Visualize original data
-```{r vis_orig , dependson='trans', eval= FALSE }
-plot_var <- dplyr::left_join(trans_data, sandy_creek, by = "Timestamp")
-
-plot_var <- trans_data[, c("Timestamp", "Lsonde_Cond_uscm",   
-                           "Lsonde_Turb_NTU", "Lsonde_Level_m" )] %>% drop_na()
-oddwater::plot_series(plot_var, title = "original series") 
-oddwater::plot_pairs(plot_var)
-
-```
-
-
-### Visualize transformed data
-```{r vis_trans , dependson='trans', eval= FALSE}
-plot_var <- trans_data[, c("Timestamp", "type", "neg_der_log_bounded_turb",
-                           "pos_der_log_bounded_cond", "neg_der_log_bounded_level")] %>% drop_na()
-colnames(plot_var) <- abbreviate(colnames(plot_var), minlength=20)
-oddwater::plot_series(plot_var, title = "Non linear transformation - one side log derivatives (bounded")
-oddwater::plot_pairs(plot_var)
-``` 
-
-
-### Compute performance metrics
-
-```{r pm}
-# Generate a toy dataset
-true_labels <- c("out", "out", "normal", "out", "normal", "normal", "normal", "normal", "normal", "normal")
-output <-  c("out", "normal", "normal", "normal", "out", "out", "normal", "normal", "normal", "normal")
-# Compute performance metrics 
-out<- calc_performance_metrics(y_truth = true_labels, y_output = output, pos_label = "out", neg_label = "normal")
-```
-
-## Compute Means square Error
-```{r eval = FALSE}
-clac_MSE(true_y, pred_y)
-```
-
-## Launch Shiny application
-```{r eval = FALSE}
-oddwater::explore_data()
-```
-
-## Further Details
-
-```{r eval = FALSE}
-?oddwater
 ```

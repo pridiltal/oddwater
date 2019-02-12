@@ -55,29 +55,29 @@ shinyServer(function(input, output) {
 
     ggplotly(p)
   })
-  
-  
-  
-  
-  
+
+
+
+
+
   output$multi <- renderPlotly({
-    
+
     if (input$site == "Sandy Creek") {
       data <- data_sandy_anom
     }
     else {
       data <- data_pioneer_anom
     }
-    
+
     data$Timestamp <- lubridate::dmy_hm(data$Timestamp)
-   
-    
+
+
     if(!is.null(input$variables)){
       selected <- data[, c("Timestamp", input$variables)] %>% drop_na()
 
       plot_data <- gather(selected, Parameter, Value, -Timestamp)
       plot_data$Parameter <- factor(plot_data$Parameter, levels = colnames(selected[,-1]))
-      
+
       p <- ggplot(plot_data, aes(x = Timestamp, y = Value, label1 = Timestamp)) +
         geom_point(size = 1, alpha = 0.5)+
         geom_line() +
@@ -86,8 +86,8 @@ shinyServer(function(input, output) {
         scale_y_continuous(breaks = scales::pretty_breaks(n = 4))+
         ylab("")
       ggplotly(p)
-      
-      
+
+
       }
   })
 })
