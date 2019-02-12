@@ -47,3 +47,14 @@ You can install oddwater from github with:
 # install.packages("devtools")
 devtools::install_github("pridiltal/oddwater")
 ```
+
+
+### Illustrative Example
+
+#### Data obtained from in situ sensors at Sandy Creek.
+```{r preprocess, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(oddwater)
+data("data_sandy_anom")
+head(data_sandy_anom)
+```

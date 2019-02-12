@@ -52,3 +52,28 @@ You can install oddwater from github with:
 # install.packages("devtools")
 devtools::install_github("pridiltal/oddwater")
 ```
+
+### Illustrative Example
+
+#### Data obtained from in situ sensors at Sandy Creek.
+
+``` r
+library(tidyverse)
+library(oddwater)
+data("data_sandy_anom")
+head(data_sandy_anom)
+#>         Timestamp Level   Cond   Tur label_Level label_Cond label_Tur
+#> 1 12/03/2017 1:00 0.636 326.34 34.47           0          0         0
+#> 2 12/03/2017 2:30 0.636 326.63 34.06           0          0         0
+#> 3 12/03/2017 4:00 0.635 327.00 33.39           0          0         0
+#> 4 12/03/2017 5:30 0.633 327.31 32.61           0          0         0
+#> 5 12/03/2017 7:00 0.634 327.81 33.34           0          0         0
+#> 6 12/03/2017 8:30 0.631 328.70 32.22           0          0         0
+#>   type_Level type_Cond type_Tur
+#> 1          0         0        0
+#> 2          0         0        0
+#> 3          0         0        0
+#> 4          0         0        0
+#> 5          0         0        0
+#> 6          0         0        0
+```
