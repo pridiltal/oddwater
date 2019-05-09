@@ -10,10 +10,11 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-project.org/)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/oddwater)](https://cran.r-project.org/package=oddwater)
 [![packageversion](https://img.shields.io/badge/Package%20version-0.5.0.9000-orange.svg?style=flat-square)](commits/master)
+[![DOI](https://zenodo.org/badge/143960804.svg)](https://zenodo.org/badge/latestdoi/143960804)
 
 -----
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--02--13-yellowgreen.svg)](/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--05--10-yellowgreen.svg)](/commits/master)
 
 [![Build
 Status](https://travis-ci.org/pridiltal/oddwater.svg?branch=master)](https://travis-ci.org/pridiltal/oddwater)
