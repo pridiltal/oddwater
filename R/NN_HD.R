@@ -22,7 +22,9 @@
 #' Wilkinson, L. (2016). Visualizing outliers. \url{https://www.cs.uic.edu/~wilkinson/Publications/outliers.pdf}
 #'
 NN_HD <- function(dataset) {
+
   dataset <- as.matrix(dataset)
+
   if (!is.numeric(dataset)) {
     stop("dataset input is not numeric")
   }
