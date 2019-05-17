@@ -20,8 +20,6 @@ data("data_sandy_anom")
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
   tabsetPanel(
-
-
     tabPanel("Individual Time Series",
       fluid = TRUE,
       sidebarLayout(
@@ -48,23 +46,24 @@ shinyUI(fluidPage(
     ),
 
     tabPanel("Multivariate TS plots",
-             fluid = TRUE,
-             sidebarLayout(
-               sidebarPanel(
-                 selectInput("site",
-                             label = "Select Site:",
-                             choices = c("Sandy Creek", "Pioneer"),
-                             selected = "Sandy Creek"
-                 ),
-                 checkboxGroupInput("variables", "Variables to show:",
-                                    colnames(data_sandy_anom[,2:4])),
-                 width = 2
-               ),
-                mainPanel(
-                  plotlyOutput("multi", width = "110%", height = "140%")
-               )
-             )
+      fluid = TRUE,
+      sidebarLayout(
+        sidebarPanel(
+          selectInput("site",
+            label = "Select Site:",
+            choices = c("Sandy Creek", "Pioneer"),
+            selected = "Sandy Creek"
+          ),
+          checkboxGroupInput(
+            "variables", "Variables to show:",
+            colnames(data_sandy_anom[, 2:4])
+          ),
+          width = 2
+        ),
+        mainPanel(
+          plotlyOutput("multi", width = "110%", height = "140%")
+        )
+      )
     )
-
   )
 ))

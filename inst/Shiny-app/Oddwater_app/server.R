@@ -29,7 +29,7 @@ shinyServer(function(input, output) {
       data <- data_pioneer_anom
     }
 
-   # data <- input$site
+    # data <- input$site
     data$Timestamp <- lubridate::dmy_hm(data$Timestamp)
     selected <- data[, c("Timestamp", input$Parameter)] %>% drop_na(input$Parameter)
 
@@ -61,7 +61,6 @@ shinyServer(function(input, output) {
 
 
   output$multi <- renderPlotly({
-
     if (input$site == "Sandy Creek") {
       data <- data_sandy_anom
     }
@@ -72,23 +71,20 @@ shinyServer(function(input, output) {
     data$Timestamp <- lubridate::dmy_hm(data$Timestamp)
 
 
-    if(!is.null(input$variables)){
+    if (!is.null(input$variables)) {
       selected <- data[, c("Timestamp", input$variables)] %>% drop_na()
 
       plot_data <- gather(selected, Parameter, Value, -Timestamp)
-      plot_data$Parameter <- factor(plot_data$Parameter, levels = colnames(selected[,-1]))
+      plot_data$Parameter <- factor(plot_data$Parameter, levels = colnames(selected[, -1]))
 
       p <- ggplot(plot_data, aes(x = Timestamp, y = Value, label1 = Timestamp)) +
-        geom_point(size = 1, alpha = 0.5)+
+        geom_point(size = 1, alpha = 0.5) +
         geom_line() +
         facet_grid(Parameter ~ ., scales = "free") +
         xlab("Time") +
-        scale_y_continuous(breaks = scales::pretty_breaks(n = 4))+
+        scale_y_continuous(breaks = scales::pretty_breaks(n = 4)) +
         ylab("")
       ggplotly(p)
-
-
-      }
+    }
   })
-
 })
