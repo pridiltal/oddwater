@@ -18,6 +18,7 @@ Imports:
   scales,
   GGally,
   tsibble,
-  shiny
+  shiny,
+  dbscan
 Suggests: 
   magrittr
