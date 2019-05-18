@@ -14,7 +14,7 @@ version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-
 
 -----
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--05--10-yellowgreen.svg)](/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--05--18-yellowgreen.svg)](/commits/master)
 
 [![Build
 Status](https://travis-ci.org/pridiltal/oddwater.svg?branch=master)](https://travis-ci.org/pridiltal/oddwater)
@@ -77,4 +77,10 @@ head(data_sandy_anom)
 #> 4          0         0        0
 #> 5          0         0        0
 #> 6          0         0        0
+```
+
+### Shiny App
+
+``` r
+oddwater::explore_data()
 ```

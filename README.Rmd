@@ -59,3 +59,10 @@ library(oddwater)
 data("data_sandy_anom")
 head(data_sandy_anom)
 ```
+
+
+### Shiny App
+
+```{r shiny, warning=FALSE, message=FALSE, eval=FALSE}
+oddwater::explore_data()
+```
