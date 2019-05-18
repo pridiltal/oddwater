@@ -3,3 +3,6 @@
 .RData
 .Ruserdata
 .DS_Store
+/inst/.DS_Store
+/inst/Shiny-app/.DS_Store
+/inst/Shiny-app/Oddwater_app/.DS_Store
