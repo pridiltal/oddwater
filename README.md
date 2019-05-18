@@ -9,7 +9,7 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-project.org/)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/oddwater)](https://cran.r-project.org/package=oddwater)
-[![packageversion](https://img.shields.io/badge/Package%20version-0.5.0.9000-orange.svg?style=flat-square)](commits/master)
+[![packageversion](https://img.shields.io/badge/Package%20version-0.6.0.9000-orange.svg?style=flat-square)](commits/master)
 [![DOI](https://zenodo.org/badge/143960804.svg)](https://zenodo.org/badge/latestdoi/143960804)
 
 -----
