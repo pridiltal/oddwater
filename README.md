@@ -16,7 +16,7 @@ version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-
 
 -----
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--06--09-yellowgreen.svg)](/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--06--11-yellowgreen.svg)](/commits/master)
 
 [![Build
 Status](https://travis-ci.org/pridiltal/oddwater.svg?branch=master)](https://travis-ci.org/pridiltal/oddwater)
