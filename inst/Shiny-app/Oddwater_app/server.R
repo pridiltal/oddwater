@@ -25,7 +25,7 @@ shinyServer(function(input, output) {
     if (input$site == "Sandy Creek") {
       data <- data_sandy_anom
     }
-    else {
+    else if (input$site == "Pioneer") {
       data <- data_pioneer_anom
     }
 
@@ -64,7 +64,7 @@ shinyServer(function(input, output) {
     if (input$site == "Sandy Creek") {
       data <- data_sandy_anom
     }
-    else {
+    else if (input$site == "Pioneer") {
       data <- data_pioneer_anom
     }
 
@@ -79,7 +79,6 @@ shinyServer(function(input, output) {
 
       p <- ggplot(plot_data, aes(x = Timestamp, y = Value, label1 = Timestamp)) +
         geom_point(size = 1, alpha = 0.5) +
-        geom_line() +
         facet_grid(Parameter ~ ., scales = "free") +
         xlab("Time") +
         scale_y_continuous(breaks = scales::pretty_breaks(n = 4)) +
