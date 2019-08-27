@@ -1,7 +1,7 @@
 Package: oddwater
 Type: Package
 Title: Outlier Detection in Data from Water-Quality Sensors
-Version: 0.6.0
+Version: 0.7.0
 Depends: R (>= 3.4.0)
 Author: Priyanga Dilini Talagala [aut, cre]
         Rob J. Hyndman [aut, ths]
