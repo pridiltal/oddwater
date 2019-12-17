@@ -3,9 +3,11 @@ Type: Package
 Title: Outlier Detection in Data from Water-Quality Sensors
 Version: 0.7.0
 Depends: R (>= 3.4.0)
-Author: Priyanga Dilini Talagala [aut, cre]
-        Rob J. Hyndman [aut, ths]
-Maintainer: Priyanga Dilini Talagala <dilini.talagala@monash.edu>
+Authors@R: c(
+    person("Priyanga Dilini", "Talagala", email="pritalagala@gmail.com", role= c("aut","cre")),
+    person("Rob J.", "Hyndman", role=c("ths", "aut"))
+    )
+Maintainer: Priyanga Dilini Talagala <pritalagala@gmail.com>
 Description: We propose a framework to detect technical outliers in water quality data from in  situ sensors.
 License: GPL-3
 Encoding: UTF-8
