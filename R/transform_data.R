@@ -17,6 +17,7 @@
 #' @importFrom tsibble as_tsibble
 #' @examples
 #' data <- data_sandy_anom[,c("Timestamp", "Cond", "Tur", "Level")]
+#' data <- data_sandy_anom[,c("Timestamp", "Cond")]
 #' data <- tidyr::drop_na(data)
 #' trans_data <- oddwater::transform_data(data)
 transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "Timestamp")
@@ -26,6 +27,7 @@ transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "
 
   n <- nrow(data)
   data_var <- as.matrix(data[ , !(names(data) %in% time_col)])
+  colnames(data_var) <- colnames(data)[!(colnames(data) %in% time_col)]
 
   # apply log transformation
   log_series <- log(data_var)
@@ -40,7 +42,7 @@ transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "
   # take the derivative of the log series (time bounded)
   time <- as.numeric(data$Timestamp[2:n] - data$Timestamp[1:(n-1)])
   time_bound <- ifelse( time >= time_bound, time, time_bound) # to reduce the effect coming from the too small time gaps
-  der_log_bounded <- rbind( rep(NA, ncol(data_var)), diff_log_series[2:n, ] / as.numeric(time_bound))
+  der_log_bounded <- rbind( rep(NA, ncol(data_var)), as.matrix(diff_log_series[2:n, ] / as.numeric(time_bound)))
   colnames(der_log_bounded) <- paste("der_log_bound_", colnames(data_var), sep = "")
   data <- cbind(data, der_log_bounded)
   time <- c(NA, time)
@@ -48,34 +50,34 @@ transform_data <- function(data,  time_bound = 90, regular = FALSE, time_col = "
   # take non linear transformation - one sided (negative) log derivatives (time bounded)
   neg_der_log_bounded <- ifelse(der_log_bounded <= 0, der_log_bounded, 0)
   colnames(neg_der_log_bounded) <- paste("neg_der_log_bound_", colnames(data_var), sep = "")
-  neg_der_log_bounded <- rbind( rep(NA, ncol(data_var)), neg_der_log_bounded[-1,])
+  neg_der_log_bounded <- rbind( rep(NA, ncol(data_var)), as.matrix(neg_der_log_bounded[-1,]))
   data <- cbind(data, neg_der_log_bounded, time)
 
   # take non linear transformation - one sided (positive) log derivatives (time bounded)
   pos_der_log_bounded <- ifelse(der_log_bounded >= 0, der_log_bounded, 0)
   colnames(pos_der_log_bounded) <- paste("pos_der_log_bound_", colnames(data_var), sep = "")
-  pos_der_log_bounded <- rbind(rep(NA, ncol(data_var)), pos_der_log_bounded[-1,])
+  pos_der_log_bounded <- rbind(rep(NA, ncol(data_var)), as.matrix(pos_der_log_bounded[-1,]))
   data <- cbind(data, pos_der_log_bounded)
 
   # rate of change
-  rc_series <- rbind( rep(NA, ncol(data_var)), (data_var[2:n,] - data_var[1:(n-1),]) / data_var[1:(n-1),])
+  rc_series <- rbind( rep(NA, ncol(data_var)), as.matrix((data_var[2:n,] - data_var[1:(n-1),]) / data_var[1:(n-1),]))
   colnames(rc_series) <- paste("rc_", colnames(data_var), sep = "")
   data <- cbind(data, rc_series)
 
   # Ratio
-  ratio_series <- rbind( rep(NA, ncol(data_var)), data_var[2:n,] / data_var[1:(n-1),])
+  ratio_series <- rbind( rep(NA, ncol(data_var)), as.matrix(data_var[2:n,] / data_var[1:(n-1),]))
   colnames(ratio_series) <- paste("ratio_", colnames(data_var), sep = "")
   data <- cbind(data, ratio_series)
 
   # Relative difference (log)
-  relative_series <- rbind( rep(NA, ncol(data_var)), (log_series[2:(n-1),] - (1/2)*(log_series[1:(n-2),] +log_series[3:n,]  )),
+  relative_series <- rbind( rep(NA, ncol(data_var)), as.matrix((log_series[2:(n-1),] - (1/2)*(log_series[1:(n-2),] +log_series[3:n,]  ))),
                             rep(NA, ncol(data_var)))
   colnames(relative_series) <- paste("rdifflog_", colnames(data_var), sep = "")
   data <- cbind(data, relative_series)
 
   # Relative difference (original)
-  relative_series_o <- rbind( rep(NA, ncol(data_var)), (data_var[2:(n-1),] - (1/2)*(data_var[1:(n-2),] +data_var[3:n,]  )),
-                            rep(NA, ncol(data_var)))
+  relative_series_o <- rbind( rep(NA, ncol(data_var)), as.matrix((data_var[2:(n-1),] - (1/2)*(data_var[1:(n-2),] + data_var[3:n,]  ))),
+                              rep(NA, ncol(data_var)))
   colnames(relative_series_o) <- paste("rdiff_", colnames(data_var), sep = "")
   data <- cbind(data, relative_series_o)
 
